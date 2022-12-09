@@ -1,0 +1,33 @@
+@media print{
+    textarea::-webkit-input-placeholder{visibility: hidden;}
+    textarea::-moz-placeholder  {visibility: hidden;}
+    textarea:-moz-placeholder  {visibility: hidden;}
+    textarea:-ms-input-placeholder  {visibility: hidden;}
+}
+
+.navLinkAdmin:hover {
+    color: white !important;
+}
+
+.navLinkAdmin:focus-visible {
+    color: white !important;
+}
+
+.list-cities-active, .list-schemes-active {
+    display: block !important;
+}
+
+.some_input {
+    background-color: rgba(0,0,0,0) !important;
+    /*-webkit-box-shadow: inset 0 0 0 50px #cfe2ff;*/
+    -webkit-text-fill-color: #084298;
+}
+
+#root {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*background-color: #DCE5FC;*/
+    background-color: #eef1fa;
+}
+/*#0d6efd*/
