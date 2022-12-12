@@ -17,5 +17,5 @@ export class Message {
     codeError = 0;
     name = "";
     email = "";
-    recipient = "";
+    recipientEmail = "";
 }

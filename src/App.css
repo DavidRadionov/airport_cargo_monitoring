@@ -19,7 +19,6 @@
 
 .some_input {
     background-color: rgba(0,0,0,0) !important;
-    /*-webkit-box-shadow: inset 0 0 0 50px #cfe2ff;*/
     -webkit-text-fill-color: #084298;
 }
 
@@ -27,7 +26,5 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    /*background-color: #DCE5FC;*/
     background-color: #eef1fa;
 }
-/*#0d6efd*/

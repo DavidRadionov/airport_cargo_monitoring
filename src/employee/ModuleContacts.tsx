@@ -10,21 +10,20 @@ function ModuleContacts(props: {emailUser: string}) {
     const [codeError, setCodeError] = useState(0);
 
     const send = function () {
-        alert(name + ": " + email + ": " + message + ": " + codeError);
         if (name !== "" && email !== "" && message !== "" && codeError !== 0) {
             let messageObject = new Message();
             messageObject.name = name;
             messageObject.email = props.emailUser;
             messageObject.message = message;
             messageObject.codeError = codeError;
-            messageObject.recipient = email;
+            messageObject.recipientEmail = email;
             sendMessage(messageObject);
+            alert("Сообщение отправлено");
         }
     }
 
     return (
         <div>
-            {/*<div style={{marginLeft: 200, marginTop: 40, fontSize: 20}}>Здесь находится обратная связь с админом. Если вы хотите сввязаться с нашим админом, заполните форму и отправьте сообщение.</div>*/}
             <div style={{display: "flex", flexDirection: "row"}}>
                 <div>
                     <Alert style={{width: 900, marginLeft: 350, marginTop: 100}}>
@@ -43,12 +42,12 @@ function ModuleContacts(props: {emailUser: string}) {
                         <div style={{display: "flex", flexDirection: "row"}}>
                         <Form.Group style={{flex: 1}} className="mb-3" controlId="formBasicPassword">
                             <Form.Label style={{fontSize: 20}}>Сообщение *</Form.Label>
-                            <Form.Control onChange={(event: any) => setMessage(event.target.value)} style={{height: 200, marginTop: 10}} as="textarea" placeholder="Сообщение" />
+                            <Form.Control onChange={(event: any) => setMessage(event.target.value)} style={{height: 170, marginTop: 10}} as="textarea" placeholder="Сообщение" />
                         </Form.Group>
                         <Form.Group  style={{flex: 1, marginLeft: 50}}>
                             <div className="mb-3">
                                 <Form.Label style={{fontSize: 20}}>Уровень проблемы *</Form.Label>
-                                <div style={{marginLeft: 10, flex: 1, marginTop: 15, marginBottom: 10}}>
+                                <div style={{marginLeft: 10, flex: 1, marginTop: 30, marginBottom: 10}}>
                                     <Form.Check
                                         onClick={() => setCodeError(1)}
                                         label="Информация"
@@ -77,16 +76,14 @@ function ModuleContacts(props: {emailUser: string}) {
                         </div>
                     </Alert>
                 </div>
-
             </div>
-            <Alert style={{marginLeft: 100, marginTop: 150}}>
+            <Alert style={{marginLeft: 100, marginTop: 180}}>
                 <p style={{fontSize: 20}}>Горячая линия в случае особой необходимости и особо критичных проблем:</p>
                 <div style={{marginLeft: 5, fontSize: 20}}>
                     <div className="phone"><a href="tel:+375 29 299 29 29">+375 29 299 29 29</a> <a style={{marginLeft:40}} href="tel:+375 29 444 44 44">+375 29 444 44 44</a></div>
                     <div className="phone"><a href="tel:+375 33 333 33 33">+375 33 333 33 33</a> <a style={{marginLeft:40}} href="tel:+375 29 555 55 55">+375 29 555 55 55</a></div>
                 </div>
             </Alert>
-
         </div>
     )
 }

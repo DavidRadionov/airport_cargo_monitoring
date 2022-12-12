@@ -1,4 +1,5 @@
 import { useState } from "react";
+import alert from "bootstrap/js/src/alert";
 
 export const GLOBAL_URL = "http://127.0.0.1:3001";
 // export const GLOBAL_URL = "http://172.20.10.2:3001";

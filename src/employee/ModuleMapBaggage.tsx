@@ -36,6 +36,7 @@ function ModuleMapBaggage() {
     useEffect(() => {
         let result: any = getCargoListID();
         result.then((list: any) => {
+            console.log(list);
             setCargoListID(list);
         })
     }, []);

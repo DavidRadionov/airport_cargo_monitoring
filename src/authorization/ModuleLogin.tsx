@@ -9,11 +9,17 @@ import { User } from "../objects/description";
 function ModuleLogin () {
     const [id, setID] = useState("");
     const [user, setUser] = useState<User>();
+    const [error, setError] = useState("");
     const logIN = () => {
         if (id !== "") {
             const result = getUserByPassword(id);
             result.then(res => {
-                setUser(res as User);
+                console.log(res);
+                if (res.error) {
+                    setError(res.error);
+                } else {
+                    setUser(res as User);
+                }
             }).catch(() => {
                 console.log("Error in fetch on authorization");
             })
@@ -31,7 +37,8 @@ function ModuleLogin () {
     }
     return (
         <div style={{position: "absolute", marginTop: "20%", marginLeft: "40%"}}>
-            <Alert >
+            <Alert.Heading>{error}</Alert.Heading>
+            <Alert>
                 {/*<Form.Group style={{ width: 300, display: "flex", flexDirection: "row"}}>*/}
                 <Alert.Heading>Личный номер</Alert.Heading>
                     {/*<Form.Label style={{}}>Личный номер</Form.Label>*/}
