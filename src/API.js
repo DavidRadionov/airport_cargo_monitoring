@@ -48,6 +48,7 @@ export const getCargoListID = async () => {
 }
 
 export const getCargoByID = async (id) => {
+    console.log(id);
     return fetch(GLOBAL_URL + "/getCargoByID/" + id).then(response => response.json())
         .catch((error) => alert(error));
 }

@@ -10,6 +10,14 @@ function ModuleLogin () {
     const [id, setID] = useState("");
     const [user, setUser] = useState<User>();
     const [error, setError] = useState("");
+
+    const onKey = (event: any) => {
+        console.log(event.target.value);
+        if (event.key === 'Enter') {
+            logIN();
+        }
+    }
+
     const logIN = () => {
         if (id !== "") {
             const result = getUserByPassword(id);
@@ -43,7 +51,7 @@ function ModuleLogin () {
                 <Alert.Heading>Личный номер</Alert.Heading>
                     {/*<Form.Label style={{}}>Личный номер</Form.Label>*/}
                 <div style={{ width: 380, display: "flex", flexDirection: "row"}}>
-                    <Form.Control style={{marginBottom: 5,fontSize: 20}} type="text" placeholder="Введите ваш личный номер" onChange={(name) => setID(name.target.value)}/>
+                    <Form.Control onKeyDown={(event) => onKey(event)} style={{marginBottom: 5,fontSize: 20}} type="text" placeholder="Введите ваш личный номер" onChange={(name) => setID(name.target.value)}/>
                     <Button style={{marginLeft: 10, fontSize: 20}} variant="info" onClick={logIN}>Войти</Button>
                 </div>
 

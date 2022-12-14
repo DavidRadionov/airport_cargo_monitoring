@@ -14,6 +14,7 @@ function App() {
           <Route path="/employee" element={<ModuleEmployee employee={new User()}/>}/>
           <Route path="/admin" element={<ModuleAdmin admin={new User()}/>}/>
           <Route path="/login" element={<ModuleLogin/>}/>
+          <Route path="/" element={<ModuleLogin/>}/>
         </Routes>
       </BrowserRouter>
 

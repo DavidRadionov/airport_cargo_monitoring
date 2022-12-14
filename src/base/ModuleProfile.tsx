@@ -39,6 +39,9 @@ function ModuleProfile (props: {user: User}) {
                             <Form.Label>Почта: </Form.Label>
                             <Form.Control className={"some_input"} style={{marginLeft: 10}} placeholder={email} onChange={(event: any) => setEmail(event.target.value)}/>
                         </Form.Group>
+                        <Form.Group style={{display: "flex", flexDirection: "row", marginTop: 5}}>
+                            <Form.Label>Роль: {(props.user.role === 1)? "Сотрудник": "Админ"} </Form.Label>
+                        </Form.Group>
                         <Form.Group>
                             <Form.Label style={{marginTop: 20, marginBottom: 5}}>Личный номер: {props.user.personal_number}</Form.Label>
                         </Form.Group>

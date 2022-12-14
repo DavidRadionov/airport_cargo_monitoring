@@ -17,7 +17,7 @@ class Way {
     positionClient: Point = new Point();
     positionScheme: Point = new Point();
     id = 0;
-    scheme = "";
+    schemeName = "";
     status = {
         message: "",
         code: 200,
@@ -31,19 +31,30 @@ function ModuleMapBaggage() {
     const [idShow, setIDShow] = useState("");
     const [idRemove, setIDRemove] = useState("");
     const [cargoListID, setCargoListID] = useState([]);
-    const [cargo, setCargo] = useState<Way>();
+    const [cargo, setCargo] = useState<Way| null>();
 
-    useEffect(() => {
+
+    const update = () => {
         let result: any = getCargoListID();
         result.then((list: any) => {
             console.log(list);
             setCargoListID(list);
         })
-    }, []);
+    }
+
+    useEffect(() => {
+       update();
+    },[]);
 
     const remove = () => {
         if (idRemove !== "") {
             removeCargoByID(idRemove);
+            update();
+            if (idRemove === idShow) {
+                setIDShow("");
+                setCargo(null);
+            }
+
         } else {
             alert("Выберите id груза для удаления");
         }
@@ -67,22 +78,25 @@ function ModuleMapBaggage() {
     return (
         <div>
             <Alert style={{display: "flex", flexDirection: "row"}}>
-                <Form.Group style={{width: 400, }}>
-                    <Form.Label style={{fontSize: 20}}>ID груза</Form.Label>
-                    <div style={{display: "flex", flexDirection: "row"}}>
+                <Alert style={{width: 500, }}>
+                    <Alert.Heading style={{fontSize: 20}}>ID груза</Alert.Heading>
+                    <div style={{flex: 1, display: "flex", flexDirection: "row"}}>
                         <Select options={options} placeholder="Введите ID груза"
                                 onChange={(id: any) => setIDShow(id.value)}></Select>
-                        <Button onClick={show} style={{marginLeft: 10}}>Показать информацию</Button>
+                        <Button onClick={show} style={{marginLeft: 10}}>Показать груз</Button>
                     </div>
-                </Form.Group>
-                <Form.Group style={{width: 500, marginLeft: 50}}>
-                    <Form.Label style={{fontSize: 20}}>ID груза</Form.Label>
-                    <div style={{display: "flex", flexDirection: "row"}}>
+                </Alert>
+                <Alert style={{width: 500, }}>
+                    <Alert.Heading style={{fontSize: 20}}>ID груза</Alert.Heading>
+                    <div style={{flex: 1, display: "flex", flexDirection: "row"}}>
                         <Select options={options} placeholder="Введите ID груза"
                                 onChange={(id: any) => setIDRemove(id.value)}></Select>
                         <Button onClick={remove} style={{marginLeft: 10}}>Удалить груз</Button>
                     </div>
-                </Form.Group>
+                </Alert>
+                <Alert>
+                    <Button style={{marginTop: 12}} onClick={update}>Обновить</Button>
+                </Alert>
             </Alert>
             {(cargo)?
                 <Alert style={{fontSize: 20, marginTop: 100, borderRadius: "20px 0 0 20px"}}>
@@ -94,10 +108,10 @@ function ModuleMapBaggage() {
                         <text style={{marginTop: 5}}>Номер клиента: <a  href={"tel:" + cargo?.phone}>{cargo?.phone}</a></text>
                         <text style={{marginTop: 5}}>Маршурт груза по городам: {cargo?.pointsClient[0].name} --- {cargo?.pointsClient[1].name} --- {cargo?.pointsClient[2].name}</text>
                         <text style={{marginTop: 5}}>Текущая позиция: {cargo?.positionClient.name}</text>
-                        <text style={{marginTop: 5}}>Схема маршрута: {cargo?.scheme}</text>
+                        <text style={{marginTop: 5}}>Схема маршрута: {cargo?.schemeName}</text>
                         <text style={{marginTop: 5}}>Маршрут схемы: {cargo?.pointsScheme.map(point => {
                             return (
-                                (point.numb === 0)? <text>{point?.name}</text>:  <text>---{point?.name}</text>
+                                (point.numb === 1)? <text>{point?.name}</text>:  <text>---{point?.name}</text>
                             );
                         })}
                         </text>

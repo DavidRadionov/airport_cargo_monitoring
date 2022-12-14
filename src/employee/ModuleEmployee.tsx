@@ -5,11 +5,11 @@ import { useState } from "react";
 import ModuleControlSchemes from "../admin/ModuleControlSchemes";
 import ModuleControlConnection from "../admin/ModuleControlConnection";
 import ModuleControlEmployee from "../admin/ModuleControlEmployee";
-import ModuleProfile from "./ModuleProfile";
+import ModuleProfile from "../base/ModuleProfile";
 import { text } from "stream/consumers";
 import ModuleHome from "./ModuleHome";
-import ModuleInfo from "./ModuleInfo";
-import ModuleContacts from "./ModuleContacts";
+import ModuleInfo from "../base/ModuleInfo";
+import ModuleContacts from "../base/ModuleContacts";
 import { User } from "../objects/description";
 import Loading from "../ui/Loading";
 

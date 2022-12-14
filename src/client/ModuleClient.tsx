@@ -21,7 +21,7 @@ class Way {
         message: "",
         code: 200,
     };
-    myName?: string;
+    name?: string;
 }
 function ModuleClient() {
     const params = useParams();
@@ -51,9 +51,20 @@ function ModuleClient() {
         }
     }, [seconds]);
 
-    useEffect(() => {
-        const result = getBaggageById(params.id);
 
+    const getCargo = async function () {
+        const result = await getBaggageById(params.id);
+        console.log(result);
+        setWay(result as Way);
+        setHour((result as Way).hours);
+        setMinute((result as Way).minutes);
+        setSeconds((result as Way).seconds);
+
+    }
+
+    useEffect( () => {
+        // getCargo();
+        const result = getBaggageById(params.id);
         result.then((result) => {
             setWay(result as Way);
             setHour((result as Way).hours);
@@ -63,6 +74,7 @@ function ModuleClient() {
         }).catch(() => {
             console.log("Error in fetch on self baggage");
         })
+
     }, [])
     if (way) {
 
@@ -75,11 +87,11 @@ function ModuleClient() {
                 </div>
                 <div style={{marginTop: 50, width: "98%", marginLeft: 10, height:110, backgroundColor: "#5986E6", borderRadius: "50px 0 0 50px"}}>
                     <div>
-                        <text style={{marginLeft: 30, color: "white", fontSize: 35}}>Имя: {way?.myName}</text>
+                        <text style={{marginLeft: 30, color: "white", fontSize: 35}}>Имя: {way?.name}</text>
                     </div>
                     <div>
                         <text style={{marginLeft: 30, color: "white", fontSize: 35}}>ID багажа: {way?.id}</text>
-                        <text style={{marginLeft: 80, color: "white", fontSize: 35}}>Статус: {way.status.message}</text>
+                        <text style={{marginLeft: 80, color: "white", fontSize: 35}}>Статус: {way?.status?.message}</text>
                     </div>
                 </div>
 
@@ -93,7 +105,7 @@ function ModuleClient() {
 
                         >
 
-                            {way?.points.map(point => {
+                            {way?.points?.map(point => {
                                 if (point.numb + 1 < way?.points.length) {
                                     return (
                                         <Layer width={200}>
@@ -156,7 +168,7 @@ function ModuleClient() {
                                     fontSize={40}
                                     width={500}
                                     align='center'
-                                    text={hours.toString() + ":" + minutes.toString() + ":" + seconds.toString()}
+                                    text={hours?.toString() + ":" + minutes?.toString() + ":" + seconds?.toString()}
                                 />
                             </Layer>
                         </Stage>
