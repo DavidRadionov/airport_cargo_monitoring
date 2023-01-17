@@ -4,6 +4,7 @@ export class User {
     email = "";
     personal_number = "";
     role = 0;
+    target = "";
 }
 export class Notification {
     message = "";

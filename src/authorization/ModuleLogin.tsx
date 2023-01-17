@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Alert, Button, Form, InputGroup } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { getUserByPassword } from "../API";
-import ModuleControlEmployee from "../admin/ModuleControlEmployee";
 import ModuleAdmin from "../admin/ModuleAdmin";
 import ModuleEmployee from "../employee/ModuleEmployee";
 import { User } from "../objects/description";

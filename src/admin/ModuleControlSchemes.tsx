@@ -1,59 +1,69 @@
 import { Button, Col, Form, FormSelect, Nav, Row, Tab } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { addCity, getCities, getSchemes, removeCity } from "../API";
+import { addCity, addScheme, getCities, getSchemes, removeCity, removeScheme } from "../API";
 import Loading from "../ui/Loading";
 import { text } from "stream/consumers";
-import ModuleControlCities from "./ModuleControlCities";
+import ModuleCitiesControl from "./ModuleCitiesControl";
 
 
 class schemeForm {
     name: string = "";
-    points: string[] = []
+    // points: string[] = []
 }
 
 function ModuleControlSchemes() {
 
-    const [nameSchemeForm, setNameSchemeForm] = useState("");
-    const [listPointsSchemeForm, setListPointsSchemeForm] = useState();
+    // const [nameSchemeForm, setNameSchemeForm] = useState("");
+    // const [listPointsSchemeForm, setListPointsSchemeForm] = useState();
+    // const [schemeByRemove, setSchemeByRemove] = useState("");
+    // const [schemeByEdit, setSchemeByEdit] = useState("");
+    const [schemes, setSchemes] = useState([]);
+    const [schemeByAdd, setSchemeByAdd] = useState("");
     const [schemeByRemove, setSchemeByRemove] = useState("");
-    const [schemeByEdit, setSchemeByEdit] = useState("");
-    const [schemes, setSchemes] = useState<schemeForm[]>();
     const [loading, setLoading] = useState(true);
 
-    const viewCreateSchemeForm = () => {
 
+    // const viewCreateSchemeForm = () => {
+    //
+    // }
+    //
+    // const viewEditSchemeForm = () => {
+    //
+    // }
+    //
+    // const addPointToScheme = () => {
+    //
+    // }
+    //
+    // const createScheme = () => {
+    //
+    // }
+
+
+    const actionAddScheme = () => {
+        if (schemeByAdd !== "") {
+            addScheme(schemeByAdd);
+            update();
+        }
     }
 
-    const viewEditSchemeForm = () => {
-
+    const actionRemoveSchemeByName = () => {
+        if (schemeByRemove !== "") {
+            removeScheme(schemeByRemove);
+            update();
+        }
     }
 
-    const addPointToScheme = () => {
-
-    }
-
-    const createScheme = () => {
-
-    }
-
-    const actionRemoveScheme = (scheme: string) => {
-        removeCity(scheme);
-    }
-
-    const actionEditScheme = (scheme: string) => {
-        console.log(scheme);
-    }
-
-    const addScheme = () => {
-
+    const update = () => {
+        const result: any = getSchemes();
+        result.then((schemes: any) => {
+            setSchemes(schemes);
+        })
+        setLoading(false);
     }
 
     const initialSchemes = () => {
-        const result: any = getSchemes();
-        result.then((schemes: any) => {
-            setSchemes((schemes as schemeForm[]));
-        })
-        setLoading(false);
+        update();
     }
 
     useEffect(() => {
@@ -71,78 +81,70 @@ function ModuleControlSchemes() {
         return <Loading/>;
     } else {
         return (
-            <div style={{marginLeft: 20, marginTop: 50, width: "100%", height: "100%", display: "flex"}}>
-                <div style={{width: "30%", height: "100%"}}>
-                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                        <Row>
-                            <Col sm={3}>
-                                <Nav variant="pills" className="flex-column">
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="first">Tab 1</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="second">Tab 2</Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
-                            </Col>
-                            <Col sm={9}>
-                                <Tab.Content>
-                                    <Tab.Pane eventKey="first">
-                                        {/*<ModuleControlCities/>*/}
-                                        {/*<Sonnet />*/}
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="second">
-                                        {/*<Sonnet />*/}
-                                    </Tab.Pane>
-                                </Tab.Content>
-                            </Col>
-                        </Row>
-                    </Tab.Container>
-                </div>
+            <div>
+                <Form style={{marginLeft: 50, width: 400}}>
+                    <Form.Group>
+                        <Form.Label>Добавить новую схему</Form.Label>
+                        <div style={{flexDirection: "row", display: "flex"}}>
+                            <Form.Control onChange={(event) => setSchemeByAdd(event.target.value)}></Form.Control>
+                            <Button style={{marginLeft: 5}} onClick={actionAddScheme}>Добавить</Button>
+                        </div>
+                    </Form.Group>
+                    <Form.Group style={{marginTop: 5}}>
+                        <Form.Label>Удалить схему</Form.Label>
+                        <div style={{flexDirection: "row", display: "flex"}}>
+                            <FormSelect onChange={(event) => setSchemeByRemove(event.target.value)}>
+                                <option></option>
+                                {schemes?.map(scheme => {
+                                    return <option value={scheme}>{scheme}</option>
+                                })}
+                            </FormSelect>
+                            <Button style={{marginLeft: 5}} onClick={actionRemoveSchemeByName}>Удалить</Button>
+                        </div>
+                    </Form.Group>
+                </Form>
+                <div style={{marginLeft: 60, marginTop: 50, width: "100%", height: "100%", display: "flex"}}>
+                    <div >
+                        <button onClick={viewSchemes} style={{
+                            textAlign: "center",
+                            width: 300,
+                            cursor: "pointer",
+                            backgroundColor: "#5f91fd",
+                            color: "white",
+                            border: 0
+                        }}>Список всех схем
+                        </button>
+                        <ul className="list-schemes" style={{
+                            marginTop: 5,
+                            display: "none",
+                            position: "relative",
+                            overflowY: "scroll",
+                            maxHeight: 700,
+                            width: 300,
+                            backgroundColor: "#5986E6",
+                        }}>
+                            {schemes?.map(scheme => {
 
-
-                <div style={{ marginLeft: 50, right: 0}}>
-                    <button onClick={viewSchemes} style={{
-                        textAlign: "center",
-                        width: 500,
-                        cursor: "pointer",
-                        backgroundColor: "#5f91fd",
-                        color: "white",
-                        border: 0
-                    }}>Список всех схем
-                    </button>
-                    <ul className="list-schemes" style={{
-                        marginTop: 5,
-                        display: "none",
-                        position: "relative",
-                        overflowY: "scroll",
-                        maxHeight: 700,
-                        width: 500,
-                        backgroundColor: "#5986E6",
-                    }}>
-                        {schemes?.map(scheme => {
-
-                            return <div style={{display: "flex"}}>
-                                <li style={{
-                                    listStyleType: "none",
-                                    color: "white",
-                                    width: "75%",
-                                    marginTop: 5,
-                                    marginBottom: 5,
-                                    marginLeft: -25,
-                                    marginRight: 5,
-                                    backgroundColor: "#5f91fd"
-                                }}>
-                                    <text style={{marginLeft: "auto", marginRight: "auto"}}>{scheme?.name}</text>
-
-                                </li>
-                                <Button onClick={() => actionRemoveScheme(scheme?.name)} variant={"light"}>удалить</Button>
-                                <Button style={{marginLeft: 2, right: 0}} variant={"light"} onClick={() => actionEditScheme(scheme?.name)}>изменить</Button>
-                            </div>
-                        })}
-                    </ul>
+                                return <div style={{display: "flex"}}>
+                                    <li style={{
+                                        listStyleType: "none",
+                                        color: "white",
+                                        marginTop: 5,
+                                        width: 300,
+                                        marginRight: 5,
+                                        marginBottom: 5,
+                                        marginLeft: -25,
+                                        backgroundColor: "#5f91fd"
+                                    }}>
+                                        <text style={{marginLeft: "auto", marginRight: "auto"}}>{scheme}</text>
+                                    </li>
+                                </div>
+                            })}
+                        </ul>
+                    </div>
                 </div>
             </div>
+
         );
     }
 }

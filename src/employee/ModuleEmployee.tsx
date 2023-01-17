@@ -1,17 +1,12 @@
 import { Button, Col, Container, Nav, Navbar, Row, Tab } from "react-bootstrap";
-import ModuleQRCodeCreator from "./ModuleQRCodeCreator";
-import ModuleMapBaggage from "./ModuleMapBaggage";
 import { useState } from "react";
-import ModuleControlSchemes from "../admin/ModuleControlSchemes";
-import ModuleControlConnection from "../admin/ModuleControlConnection";
-import ModuleControlEmployee from "../admin/ModuleControlEmployee";
 import ModuleProfile from "../base/ModuleProfile";
-import { text } from "stream/consumers";
 import ModuleHome from "./ModuleHome";
 import ModuleInfo from "../base/ModuleInfo";
 import ModuleContacts from "../base/ModuleContacts";
 import { User } from "../objects/description";
 import Loading from "../ui/Loading";
+import ModuleLogin from "../authorization/ModuleLogin";
 
 function ModuleEmployee(props: {employee: User}) {
     const [statePage, setStatePage] = useState("");
@@ -22,12 +17,17 @@ function ModuleEmployee(props: {employee: User}) {
     const isPage = () => {
         switch (statePage) {
             case "home": return <ModuleHome personal_number={props.employee.personal_number}/>;
-            case "profile": return <ModuleProfile user={user}/>;
+            case "profile": return <ModuleProfile mod={"light"} user={user} left={350} top={0}/>;
             case "info": return <ModuleInfo/>;
             case "contacts": return <ModuleContacts emailUser={user.email}/>;
             default: return <ModuleHome  personal_number={props.employee.personal_number}/>;
         }
     }
+
+    if (statePage === "exit") {
+        return <ModuleLogin/>;
+    }
+
     if (user) {
         return (
             <div>
@@ -39,6 +39,7 @@ function ModuleEmployee(props: {employee: User}) {
                             <Nav.Link  href={"#profile"} onClick={() => toStatePage("profile")}>Профиль</Nav.Link>
                             <Nav.Link  href={"#info"} onClick={() => toStatePage("info")}>Информация</Nav.Link>
                             <Nav.Link  href={"#contacts"} onClick={() => toStatePage("contacts")}>Обратная связь</Nav.Link>
+                            <Nav.Link  href={"#exit"} onClick={() => toStatePage("exit")}>Выход</Nav.Link>
                         </Nav>
                     </Container>
                 </Navbar>

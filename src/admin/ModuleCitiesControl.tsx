@@ -3,7 +3,7 @@ import { addCity, getCities, removeCity } from "../API";
 import { text } from "stream/consumers";
 import { Button, Form, FormSelect } from "react-bootstrap";
 
-function ModuleControlCities() {
+function ModuleCitiesControl() {
     const [cityByRemove, setCityByRemove] = useState("");
     const [cityByAdd, setCityByAdd] = useState("");
     const [cities, setCities] = useState([]);
@@ -69,10 +69,10 @@ function ModuleControlCities() {
                     </div>
                 </Form.Group>
             </Form>
-            <div style={{marginTop: 20, marginLeft: 20}}>
+            <div style={{marginTop: 50, marginLeft: 20}}>
                 <button onClick={viewCities} style={{
                     textAlign: "center",
-                    width: 200,
+                    width: 300,
                     cursor: "pointer",
                     backgroundColor: "#5f91fd",
                     color: "white",
@@ -85,7 +85,7 @@ function ModuleControlCities() {
                     position: "relative",
                     overflowY: "scroll",
                     maxHeight: 500,
-                    width: 200,
+                    width: 300,
                     backgroundColor: "#5986E6",
                 }}>
                     {cities?.map(city => {
@@ -107,4 +107,4 @@ function ModuleControlCities() {
     )
 }
 
-export default ModuleControlCities;
+export default ModuleCitiesControl;

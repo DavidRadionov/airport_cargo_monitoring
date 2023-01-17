@@ -1,5 +1,7 @@
 import { Col, Nav, Row, Tab } from "react-bootstrap";
 import ModuleNotifications from "../base/ModuleNotifications";
+import ModuleInfoControl from "./ModuleInfoControl";
+import ModuleEmployeeControl from "./ModuleEmployeeControl";
 
 function ModuleHome (props: {personal_number: string}) {
     return (
@@ -15,7 +17,7 @@ function ModuleHome (props: {personal_number: string}) {
                     <Col sm={3}>
                         <Nav style={{fontSize: 20}} variant="pills" className="flex-column">
                             <Nav.Item>
-                                <Nav.Link eventKey="first">Города и маршруты</Nav.Link>
+                                <Nav.Link eventKey="first">Города и схемы</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="second">Сотрудники</Nav.Link>
@@ -27,9 +29,11 @@ function ModuleHome (props: {personal_number: string}) {
                     </Col>
                     <Col sm={9}>
                         <Tab.Content style={{marginLeft: 100}}>
-                            <Tab.Pane eventKey="first" >
+                            <Tab.Pane eventKey="first">
+                                <ModuleInfoControl/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
+                                <ModuleEmployeeControl/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
                                 <ModuleNotifications personal_number={props.personal_number}/>

@@ -67,6 +67,11 @@ export const getCities = async () => {
         .then(res => res.cities).catch((error) => alert(error));
 }
 
+export const getUsers = async () => {
+    return await fetch(GLOBAL_URL + "/getUsers").then(res => res.json())
+        .then(res => res.users).catch((error) => alert(error));
+}
+
 export const getBaggageById = (id) => {
     return fetch(GLOBAL_URL + "/getStateBaggageById/" + id).then(response => response.json())
         .catch((error) => alert(error));
@@ -78,6 +83,10 @@ export const addCity = (name) => {
 
 export const removeCity = (name) => {
     fetch(GLOBAL_URL + "/removeCity/" + name).catch((error) => console.log(error));
+}
+
+export const addScheme = (name) => {
+    fetch(GLOBAL_URL + "/addScheme/" + name).catch((error) => console.log(error));
 }
 
 export const removeScheme = (name) => {
